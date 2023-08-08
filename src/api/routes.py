@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Character, Planet
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -16,3 +16,39 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/characters', methods=['GET'])
+def get_all_characters():
+    characters = Character.query.all()
+    return jsonify(
+        Characters=[character.serialize() for character in characters]
+    ), 200
+
+@api.route('/characters/<int:id>', methods=['GET'])
+def get_character(id):
+    character = Character.query.filter_by(id=id).first()
+    if character:
+        return jsonify(Character=character.serialize()), 200
+    else:
+        return jsonify(
+            message="This character does not exist",
+            character=None
+        ), 451
+
+@api.route('planets', methods=['GET'])
+def get_all_planets():
+    planets = Planet.query.all()
+    return jsonify(
+        Planets=[planet.serialize() for planet in planets]
+    ), 200
+
+@api.route('planets/<int:id>', methods=['GET'])
+def get_planet(id):
+    planet = Planet.query.filter_by(id=id).first()
+    if planet:
+        return jsonify(Planet=planet.serialize()), 200
+    else:
+        return jsonify(
+            message="This planet does not exist",
+            planet=None
+        ), 451
