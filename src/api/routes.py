@@ -17,6 +17,13 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@api.route('/users', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+    return jsonify(Users=[user.serialize() for user in users])
+
+
+
 @api.route('/characters', methods=['GET'])
 def get_all_characters():
     characters = Character.query.all()

@@ -19,6 +19,7 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "email": self.email,
+            "favorites": [favorite.serialize() for favorite in self.favorites]
             # do not serialize the password, its a security breach
         }
     
@@ -93,3 +94,19 @@ class Favorites(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     character_id = db.Column(db.Integer, db.ForeignKey('character.id'))
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
+
+    user = db.relationship(
+        "User", uselist=False,
+        backref=db.backref("favorites", uselist=True)
+    )
+
+    def __repr__(self):
+        return f"<Favorites {self.id}"
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "character_id": self.character_id,
+            "planet_id": self.planet_id
+        }
