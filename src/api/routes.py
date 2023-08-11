@@ -39,31 +39,46 @@ def add_favorite(id):
     '''
     POST: {
         "name": Name of item,
-        "user_id": id of user,
         "type": 'character' or 'planet',
         "og_id": id of item in it's original table
     }
     '''
 
-    data = request.json
+    post_req = request.json
 
-    if data["type"] == "character":
-        character = Character.query.filter_by(id=data["og_id"]).first()
+    if post_req["type"] == "character":
+        character = Character.query.filter_by(id=post_req["og_id"]).first()
         if not character:
             return jsonify(msg="This character doesn't exist"), 400
-        elif character.name != data["name"]:
+        elif character.name != post_req["name"]:
             return jsonify(msg="The og_id and the character's name doesn't match what's in our database"), 400
         else:
-            return jsonify(Character=character.serialize()), 200
+            new_fav = Favorites(
+                name=post_req["name"],
+                user_id=id,
+                type=post_req["type"],
+                og_id=post_req["og_id"]
+            )
+            db.session.merge(new_fav)
+            db.session.commit()
+            return '', 204
         
-    elif data["type"] == "planet":
-        planet = Planet.query.filter_by(id=data["og_id"]).first()
+    elif post_req["type"] == "planet":
+        planet = Planet.query.filter_by(id=post_req["og_id"]).first()
         if not planet:
             return jsonify(msg="This planet doesn't exist"), 400
-        elif planet.name != data["name"]:
+        elif planet.name != post_req["name"]:
             return jsonify(msg="The og_id and the planet's name doesn't match what's in our database"), 400
         else:
-            return jsonify(Planet=planet.serialize()), 200
+            new_fav = Favorites(
+                name=post_req["name"],
+                user_id=id,
+                type=post_req["type"],
+                og_id=post_req["og_id"]
+            )
+            db.session.merge(new_fav)
+            db.session.commit()
+            return '', 204
         
     else:
         return jsonify(msg="Data type doesn't exist"), 400
