@@ -102,10 +102,11 @@ class Favorites(db.Model):
     )
 
     def __repr__(self):
-        return f"<Favorited {self.type.capitalize()} {self.name}"
+        return f"<Favorited {self.type.capitalize()} {self.name}>"
     
     def serialize(self):
         return {
+            "id": self.id,
             "user_id": self.user_id,
             "name": self.name,
             "type": self.type,

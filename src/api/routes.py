@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Character, Planet
+from api.models import db, User, Character, Planet, Favorites
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -22,16 +22,52 @@ def get_all_users():
     users = User.query.all()
     return jsonify(Users=[user.serialize() for user in users])
 
-@api.route('/users/<int:id>', methods=['GET'])
-def get_user(id):
-    user = User.query.filter_by(id=id).first()
-    if user:
-        return jsonify(User=user.serialize()), 200
+@api.route('/users/<int:id>/favorites', methods=['GET'])
+def get_favorites(id):
+    favorites = Favorites.query.filter_by(user_id=id).all()
+    print(favorites)
+    if favorites:
+        return jsonify([favorite.serialize() for favorite in favorites]), 200
     else:
         return jsonify(
             message="User not found",
             User=None
         ), 401
+    
+@api.route('/users/<int:id>/favorites', methods=['POST'])
+def add_favorite(id):
+    '''
+    POST: {
+        "name": Name of item,
+        "user_id": id of user,
+        "type": 'character' or 'planet',
+        "og_id": id of item in it's original table
+    }
+    '''
+
+    data = request.json
+
+    if data["type"] == "character":
+        character = Character.query.filter_by(id=data["og_id"]).first()
+        if not character:
+            return jsonify(msg="This character doesn't exist"), 400
+        elif character.name != data["name"]:
+            return jsonify(msg="The og_id and the character's name doesn't match what's in our database"), 400
+        else:
+            return jsonify(Character=character.serialize()), 200
+        
+    elif data["type"] == "planet":
+        planet = Planet.query.filter_by(id=data["og_id"]).first()
+        if not planet:
+            return jsonify(msg="This planet doesn't exist"), 400
+        elif planet.name != data["name"]:
+            return jsonify(msg="The og_id and the planet's name doesn't match what's in our database"), 400
+        else:
+            return jsonify(Planet=planet.serialize()), 200
+        
+    else:
+        return jsonify(msg="Data type doesn't exist"), 400
+
 
 @api.route('/characters', methods=['GET'])
 def get_all_characters():
