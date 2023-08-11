@@ -66,7 +66,7 @@ class Planet(db.Model):
     diameter = db.Column(db.Integer)
     hours_in_day = db.Column(db.Integer)
     days_in_year = db.Column(db.Integer)
-    population = db.Column(db.Integer)
+    population = db.Column(db.String(100))
     image_url = db.Column(db.String(200))
     created = db.Column(db.DateTime)
     edited = db.Column(db.DateTime)
