@@ -1,0 +1,236 @@
+{
+    "Characters": [
+        {
+          "birth_year": "19BBY",
+          "eye_color": "Blue",
+          "gender": "Male",
+          "height": 172,
+          "homeworld": 77,
+          "id": 1,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/1.jpg",
+          "name": "Luke Skywalker",
+          "species": "Human",
+          "weight": 77
+        },
+        {
+          "birth_year": "112BBY",
+          "eye_color": "Yellow",
+          "gender": "N/A",
+          "height": 167,
+          "homeworld": 75,
+          "id": 2,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/2.jpg",
+          "name": "C-3PO",
+          "species": "Droid",
+          "weight": 75
+        },
+        {
+          "birth_year": "33BBY",
+          "eye_color": "Red",
+          "gender": "N/A",
+          "height": 96,
+          "homeworld": 32,
+          "id": 3,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/3.jpg",
+          "name": "R2-D2",
+          "species": "Droid",
+          "weight": 32
+        },
+        {
+          "birth_year": "41.9BBY",
+          "eye_color": "Yellow",
+          "gender": "Male",
+          "height": 202,
+          "homeworld": 136,
+          "id": 4,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/4.jpg",
+          "name": "Darth Vader",
+          "species": "Human",
+          "weight": 136
+        },
+        {
+          "birth_year": "19BBY",
+          "eye_color": "Brown",
+          "gender": "Female",
+          "height": 150,
+          "homeworld": 49,
+          "id": 5,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/5.jpg",
+          "name": "Leia Organa",
+          "species": "Human",
+          "weight": 49
+        },
+        {
+          "birth_year": "52BBY",
+          "eye_color": "Blue",
+          "gender": "Male",
+          "height": 178,
+          "homeworld": 120,
+          "id": 6,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/6.jpg",
+          "name": "Owen Lars",
+          "species": "Human",
+          "weight": 120
+        },
+        {
+          "birth_year": "47BBY",
+          "eye_color": "Blue",
+          "gender": "Female",
+          "height": 165,
+          "homeworld": 75,
+          "id": 7,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/7.jpg",
+          "name": "Beru Whitesun Lars",
+          "species": "Human",
+          "weight": 75
+        },
+        {
+          "birth_year": "N/A",
+          "eye_color": "Red",
+          "gender": "N/A",
+          "height": 97,
+          "homeworld": 32,
+          "id": 8,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/8.jpg",
+          "name": "R5-D4",
+          "species": "Droid",
+          "weight": 32
+        },
+        {
+          "birth_year": "24BBY",
+          "eye_color": "Brown",
+          "gender": "Male",
+          "height": 183,
+          "homeworld": 84,
+          "id": 9,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/9.jpg",
+          "name": "Biggs Darklighter",
+          "species": "Human",
+          "weight": 84
+        },
+        {
+          "birth_year": "57BBY",
+          "eye_color": "Blue-Gray",
+          "gender": "Male",
+          "height": 182,
+          "homeworld": 77,
+          "id": 10,
+          "image_url": "https://starwars-visualguide.com/assets/img/characters/10.jpg",
+          "name": "Obi-Wan Kenobi",
+          "species": "Human",
+          "weight": 77
+        }
+      ],
+      "Planets": [
+        {
+          "climate": "Arid",
+          "days_in_year": 304,
+          "diameter": 10465,
+          "hours_in_day": 23,
+          "id": 1,
+          "image_url": "https://static.wikia.nocookie.net/starwars/images/b/b0/Tatooine_TPM.png",
+          "name": "Tatooine",
+          "population": 200000,
+          "terrain": "Desert"
+        },
+        {
+          "climate": "Temperate",
+          "days_in_year": 364,
+          "diameter": 12500,
+          "hours_in_day": 24,
+          "id": 2,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/2.jpg",
+          "name": "Alderaan",
+          "population": 2000000000,
+          "terrain": "Grasslands, Mountains"
+        },
+        {
+          "climate": "Temperate, Tropical",
+          "days_in_year": 4818,
+          "diameter": 10200,
+          "hours_in_day": 24,
+          "id": 3,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/3.jpg",
+          "name": "Yavin IV",
+          "population": 1000,
+          "terrain": "Jungle, Rainforests"
+        },
+        {
+          "climate": "Frozen",
+          "days_in_year": 549,
+          "diameter": 7200,
+          "hours_in_day": 23,
+          "id": 4,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/4.jpg",
+          "name": "Hoth",
+          "population": 0,
+          "terrain": "Tundra, Ice Caves, Mountain Ranges"
+        },
+        {
+          "climate": "Murky",
+          "days_in_year": 341,
+          "diameter": 8900,
+          "hours_in_day": 23,
+          "id": 5,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/5.jpg",
+          "name": "Dagobah",
+          "population": 0,
+          "terrain": "Swamp, Jungles"
+        },
+        {
+          "climate": "Temperate",
+          "days_in_year": 5110,
+          "diameter": 118000,
+          "hours_in_day": 12,
+          "id": 6,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/6.jpg",
+          "name": "Bespin",
+          "population": 6000000,
+          "terrain": "Gas Giant"
+        },
+        {
+          "climate": "Temperate",
+          "days_in_year": 402,
+          "diameter": 4900,
+          "hours_in_day": 18,
+          "id": 7,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/7.jpg",
+          "name": "Endor",
+          "population": 30000000,
+          "terrain": "Forests, Mountains, Lakes"
+        },
+        {
+          "climate": "Temperate",
+          "days_in_year": 312,
+          "diameter": 12120,
+          "hours_in_day": 26,
+          "id": 8,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/8.jpg",
+          "name": "Naboo",
+          "population": 45000000,
+          "terrain": "Grassy Hills, Swamps, Forests, Mountains"
+        },
+        {
+          "climate": "Temperate",
+          "days_in_year": 368,
+          "diameter": 12240,
+          "hours_in_day": 24,
+          "id": 9,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/9.jpg",
+          "name": "Coruscant",
+          "population": 10000000,
+          "terrain": "Cityscape, Mountains"
+        },
+        {
+          "climate": "Temperate",
+          "days_in_year": 463,
+          "diameter": 19720,
+          "hours_in_day": 27,
+          "id": 10,
+          "image_url": "https://starwars-visualguide.com/assets/img/planets/10.jpg",
+          "name": "Kamino",
+          "population": 1000000000,
+          "terrain": "Ocean"
+        }
+      ]
+}
