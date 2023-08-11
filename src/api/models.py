@@ -92,8 +92,9 @@ class Favorites(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    character_id = db.Column(db.Integer, db.ForeignKey('character.id'))
-    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
+    name = db.Column(db.String(100))
+    type = db.Column(db.String(100))
+    og_id = db.Column(db.Integer)
 
     user = db.relationship(
         "User", uselist=False,
@@ -101,12 +102,12 @@ class Favorites(db.Model):
     )
 
     def __repr__(self):
-        return f"<Favorites {self.id}"
+        return f"<Favorited {self.type.capitalize()} {self.name}"
     
     def serialize(self):
         return {
-            "id": self.id,
             "user_id": self.user_id,
-            "character_id": self.character_id,
-            "planet_id": self.planet_id
+            "name": self.name,
+            "type": self.type,
+            "og_id": self.og_id,
         }
