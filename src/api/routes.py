@@ -22,8 +22,13 @@ def get_all_users():
     users = User.query.all()
     return jsonify(Users=[user.serialize() for user in users])
 
+@api.route('/favorites', methods=['GET'])
+def get_all_favorites():
+    favorites = Favorites.query.all()
+    return jsonify(Favorites=[favorite.serialize() for favorite in favorites])
+
 @api.route('/users/<int:id>/favorites', methods=['GET'])
-def get_favorites(id):
+def get_favorites_of_user(id):
     favorites = Favorites.query.filter_by(user_id=id).all()
     print(favorites)
     if favorites:
@@ -43,8 +48,13 @@ def add_favorite(id):
         "og_id": id of item in it's original table
     }
     '''
-
     post_req = request.json
+    
+    favorites = Favorites.query.filter_by(user_id=id).all()
+    favs_list = [fav.serialize() for fav in favorites]
+    for fav in favs_list:
+        if post_req["name"] == fav["name"]:
+            return jsonify(msg="You already have this item favorited, you goober!"), 400
 
     if post_req["type"] == "character":
         character = Character.query.filter_by(id=post_req["og_id"]).first()
@@ -83,6 +93,12 @@ def add_favorite(id):
     else:
         return jsonify(msg="Data type doesn't exist"), 400
 
+@api.route('/favorites/<int:fav_id>', methods=['DELETE'])
+def delete_favorite(fav_id):
+    favorite = Favorites.query.get(fav_id)
+    db.session.delete(favorite)
+    db.session.commit()
+    return '', 204
 
 @api.route('/characters', methods=['GET'])
 def get_all_characters():
