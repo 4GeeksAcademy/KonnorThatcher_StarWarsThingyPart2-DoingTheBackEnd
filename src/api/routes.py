@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from api.models import db, User, Character, Planet, Favorites
 from api.utils import generate_sitemap, APIException
 
@@ -17,6 +18,43 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@api.route('/test', methods=['GET'])
+def token_maker():
+    return jsonify(
+        token=create_access_token("Is this a valid token?")
+    )
+
+@api.route('/signup', methods=['POST'])
+def signup():
+    data = request.json
+    print(data)
+    user = User.query.filter_by(email=data.get("email", None)).first()
+
+    if user:
+        return jsonify(message="This user already exists. Get outta here!"), 400
+    
+    user = User(
+        email=data["email"],
+        password=data["password"],
+        name=data["username"],
+        is_active=True
+    )
+    db.session.add(user)
+    db.session.commit()
+    return '', 204
+
+@api.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    print(data)
+    user = User.query.filter_by(email=data.get("email", None)).first()
+
+    if not user or user.password != data.get("password", None):
+        return jsonify(message="Invalid Credentials"), 401
+
+    token = create_access_token(user.email)
+    return jsonify(token=token), 200
+
 @api.route('/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
@@ -27,9 +65,11 @@ def get_all_favorites():
     favorites = Favorites.query.all()
     return jsonify(Favorites=[favorite.serialize() for favorite in favorites])
 
-@api.route('/users/<int:id>/favorites', methods=['GET'])
-def get_favorites_of_user(id):
-    favorites = Favorites.query.filter_by(user_id=id).all()
+@api.route('/favorites', methods=['GET'])
+@jwt_required()
+def get_favorites_of_user():
+    user = User.query.filter_by(email=get_jwt_identity()).first()
+    favorites = Favorites.query.filter_by(user_id=user.id).all()
     print(favorites)
     if favorites:
         return jsonify([favorite.serialize() for favorite in favorites]), 200
@@ -39,8 +79,9 @@ def get_favorites_of_user(id):
             User=None
         ), 401
     
-@api.route('/users/<int:id>/favorites', methods=['POST'])
-def add_favorite(id):
+@api.route('/favorites', methods=['POST'])
+@jwt_required()
+def add_favorite():
     '''
     POST: {
         "name": Name of item,
@@ -50,7 +91,9 @@ def add_favorite(id):
     '''
     post_req = request.json
     
-    favorites = Favorites.query.filter_by(user_id=id).all()
+    user = User.query.filter_by(email=get_jwt_identity()).first()
+    favorites = Favorites.query.filter_by(user_id=user.id).all()
+
     favs_list = [fav.serialize() for fav in favorites]
     for fav in favs_list:
         if post_req["name"] == fav["name"]:
@@ -65,7 +108,7 @@ def add_favorite(id):
         else:
             new_fav = Favorites(
                 name=post_req["name"],
-                user_id=id,
+                user_id=user.id,
                 type=post_req["type"],
                 og_id=post_req["og_id"]
             )
@@ -82,7 +125,7 @@ def add_favorite(id):
         else:
             new_fav = Favorites(
                 name=post_req["name"],
-                user_id=id,
+                user_id=user.id,
                 type=post_req["type"],
                 og_id=post_req["og_id"]
             )
@@ -94,11 +137,17 @@ def add_favorite(id):
         return jsonify(msg="Data type doesn't exist"), 400
 
 @api.route('/favorites/<int:fav_id>', methods=['DELETE'])
+@jwt_required
 def delete_favorite(fav_id):
+    user = User.query.filter_by(email=get_jwt_identity()).first()
     favorite = Favorites.query.get(fav_id)
-    db.session.delete(favorite)
-    db.session.commit()
-    return '', 204
+
+    if favorite.user_id == user.id:
+        db.session.delete(favorite)
+        db.session.commit()
+        return '', 204
+    else:
+        return jsonify(message="You are not authorized to remove this item from favorites"), 400
 
 @api.route('/characters', methods=['GET'])
 def get_all_characters():
