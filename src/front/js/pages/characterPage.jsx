@@ -8,7 +8,7 @@ const CharacterPage = () => {
 
     useEffect(() => {getPerson()}, [charID])
 
-    const url = `https://swapi.dev/api/people/${charID}/`
+    const url = `${process.env.BACKEND_URL}api/characters/${charID}`
 
     const getPerson = () => {
         if (Object.keys(character).length > 0) setCharacter({})
@@ -36,7 +36,7 @@ const CharacterPage = () => {
             <div className="col-6 d-flex">
                 <img 
                 className='ms-auto' 
-                src={`https://starwars-visualguide.com/assets/img/characters/${charID}.jpg`}
+                src={character.image_url}
                 style={imgStyle}
                 onError={e => e.target.src = "https://placehold.co/400x550"} 
                 />
@@ -54,7 +54,7 @@ const CharacterPage = () => {
                         <b>Height:</b> {cmToFt(character.height)}
                     </li>
                     <li>
-                        <b>Hair Color:</b> {character.hair_color}
+                        <b>Homeworld:</b> {character.homeworld}
                     </li>
                     <li>
                         <b>Eye Color:</b> {character.eye_color}

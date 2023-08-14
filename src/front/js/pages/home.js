@@ -16,19 +16,15 @@ export const Home = () => {
 	}, [])
 
 	const getPeople = () => {
-		fetch("https://swapi.dev/api/people/", {method: 'GET'})
+		fetch(`${process.env.BACKEND_URL}api/characters`, {method: 'GET'})
 		.then(result => result.json())
-		.then(people => setPeople(people.results))
+		.then(people => setPeople(people.Characters))
 	}
 
 	const getPlanets = () => {
-		fetch("https://swapi.dev/api/planets/", {method: 'GET'})
+		fetch(`${process.env.BACKEND_URL}api/planets`, {method: 'GET'})
 		.then(result => result.json())
-		.then(planets => setPlanets(planets.results))
-	}
-
-	const idFromURL = (url) => {
-		return url.match(/[0-9]/g);
+		.then(planets => setPlanets(planets.Planets))
 	}
 
 	return (
@@ -37,15 +33,14 @@ export const Home = () => {
     		    <h2 className='text-danger'>Characters</h2>
     		    <div className='d-flex overflow-x-auto p-2'>
     		        {people.length === 0 ? (<PlaceholderCard />) : people.map((person, idx) => {
-						let id = person.url.match(/[0-9]/g).join('')
 						return (
 							<CharacterCard 
-								imgURL={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
+								imgURL={person.image_url}
 								key={idx} 
 								name={person.name} 
-								hairColor={person.hair_color} 
+								homeworld={person.homeworld} 
 								eyeColor={person.eye_color} 
-								id={id}
+								id={person.id}
 							/>
 						)
 					})}
@@ -55,15 +50,14 @@ export const Home = () => {
     		    <h2 className='text-danger'>Planets</h2>
     		    <div className="d-flex overflow-x-auto p-2">
     		        {planets.length === 0 ? (<PlaceholderCard />) : planets.map((planet, idx) => {
-						let id = planet.url.match(/[0-9]/g).join('')
 						return (
 							<PlanetCard 
-								imgURL={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
+								imgURL={planet.image_url}
 								key={idx} 
 								name={planet.name} 
 								population={planet.population} 
 								terrain={planet.terrain}
-								id={id}
+								id={planet.id}
 							/>
 						)
 					})}

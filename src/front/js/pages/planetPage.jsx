@@ -8,7 +8,7 @@ const PlanetPage = () => {
 
     useEffect(() => {getPlanet()}, [planetID])
 
-    const url = `https://swapi.dev/api/planets/${planetID}/`
+    const url = `${process.env.BACKEND_URL}api/planets/${planetID}`
 
     const getPlanet = () => {
         if (Object.keys(planet).length > 0) setPlanet({})
@@ -27,7 +27,7 @@ const PlanetPage = () => {
             <div className="col-6 d-flex">
                 <img
                  className='ms-auto' 
-                 src={`https://starwars-visualguide.com/assets/img/planets/${planetID}.jpg`} 
+                 src={planet.image_url} 
                  style={imgStyle}
                  onError={e => e.target.src = "https://placehold.co/400x400"} 
                  />

@@ -160,7 +160,7 @@ def get_all_characters():
 def get_character(id):
     character = Character.query.filter_by(id=id).first()
     if character:
-        return jsonify(Character=character.serialize()), 200
+        return jsonify(character.serialize()), 200
     else:
         return jsonify(
             message="This character does not exist",
@@ -178,7 +178,7 @@ def get_all_planets():
 def get_planet(id):
     planet = Planet.query.filter_by(id=id).first()
     if planet:
-        return jsonify(Planet=planet.serialize()), 200
+        return jsonify(planet.serialize()), 200
     else:
         return jsonify(
             message="This planet does not exist",

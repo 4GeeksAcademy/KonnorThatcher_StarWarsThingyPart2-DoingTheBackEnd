@@ -52,7 +52,7 @@ class Character(db.Model):
             "eye_color": self.eye_color,
             "height": self.height,
             "weight": self.weight,
-            "homeworld": self.weight,
+            "homeworld": self.homeworld,
             "image_url": self.image_url
         }
 

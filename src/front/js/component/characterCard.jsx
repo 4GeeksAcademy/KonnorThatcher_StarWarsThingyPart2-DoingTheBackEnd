@@ -6,7 +6,7 @@ import { Context } from '../store/appContext';
 const CharacterCard = ({ 
   imgURL = "https://placehold.co/600x400", 
   name = "Noah Botty", 
-  hairColor = "n/a", 
+  homeworld = "n/a", 
   eyeColor = "n/a", 
   id
 }) => {
@@ -22,7 +22,7 @@ const CharacterCard = ({
       />
       <div className="card-body">
         <h5 className="card-title">{name}</h5>
-        <p className="card-text mb-1">Hair Color: {hairColor}</p>
+        <p className="card-text mb-1">Homeworld: {homeworld}</p>
         <p className='card-text mb-1'>Eye Color: {eyeColor}</p>
         <div className='d-flex justify-content-between mt-3'>
             <Link to={"/characterPage/" + id}>
