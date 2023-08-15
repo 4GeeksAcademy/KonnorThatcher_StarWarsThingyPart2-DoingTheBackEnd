@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			message: null,
 			token: '',
+			loggedIn: false,
 			favorites: [
 				{
 					name: "R5-D4",
@@ -93,6 +94,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const newArr = store.favorites.filter((item) => item.name != obj.name)
 				setStore({favorites: newArr})
+			},
+			loginStatus: () => {
+				const store = getStore()
+				const setLogin = !store.loggedIn
+				setStore({loggedIn: setLogin})
 			}
 		}
 	};

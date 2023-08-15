@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
+import { Context } from "../store/appContext.js";
 import { Link } from "react-router-dom";
 import FavoritesDropdown from "./favoritesDropdown.jsx";
+import SignupAndLogin from "./signupAndLogin.jsx";
 
 export const Navbar = () => {
+	const {store, actions} = useContext(Context)
 	return (
 		<nav className="navbar navbar-light bg-light">
 			<div className="container">
@@ -11,8 +14,8 @@ export const Navbar = () => {
 						<i className="fa-solid fa-jedi fa-2xl"></i>
 					</span>
 				</Link>
-				<div className="ml-auto">
-					<FavoritesDropdown />
+				<div className="d-flex ml-auto">
+					{store.loggedIn == false ? <SignupAndLogin /> : <FavoritesDropdown />}
 				</div>
 			</div>
 		</nav>
