@@ -1,9 +1,8 @@
-import React, {useState, useContext} from 'react'
-import { Context } from '../store/appContext';
+import React from 'react'
 import LoginForm from './loginForm.jsx';
+import SignupForm from './signupForm.jsx';
 
 const SignupAndLogin = () => {
-    const {state, actions} = useContext(Context)
 
     return (
         <>
@@ -17,7 +16,7 @@ const SignupAndLogin = () => {
                     Sign Up
                 </button>
                 <div className="dropdown-menu dropdown-menu-end p-2 me-0">
-                   {/*<Form formFunc={actions.signup} buttonText={"Signup"} />*/}
+                   <SignupForm />
                 </div>
             </div>
             <div className='dropdown-center'>

@@ -1,10 +1,15 @@
-import React, {useContext} from 'react'
+import React, {useEffect, useContext} from 'react'
 import { Context } from '../store/appContext'
 import { Link } from 'react-router-dom'
 
 const FavoritesDropdown = () => {
   const {store, actions} = useContext(Context)
-  console.log(store.favorites)
+
+  useEffect(() => {
+    actions.getUserFavorites()
+  }, [])
+  
+  console.log(store.userFavorites)
 
   return (
     <div className="dropdown">
@@ -33,6 +38,8 @@ const FavoritesDropdown = () => {
                   </div>
                 )
             })}
+            <li><hr className='dropdown-divider' /></li>
+            <button className='btn ms-2 btn-danger' onClick={() => actions.logout()}>Logout</button>
         </ul>
     </div>
   )

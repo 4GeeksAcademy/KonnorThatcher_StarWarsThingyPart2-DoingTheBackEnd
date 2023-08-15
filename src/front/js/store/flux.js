@@ -20,6 +20,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+			loginStatus: () => {
+				const store = getStore()
+				const setLogin = !store.loggedIn
+				setStore({loggedIn: setLogin})
+			},
 			login: async (email, password) => {
 				const resp = await fetch(`${process.env.BACKEND_URL}api/login`, {
 					headers: {
@@ -62,7 +67,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false
 					}
 					console.log("User successfully created! Logging you in now!")
-					return await getActions().login(email, password)
+					return true
 				} catch (error) {
 					console.error("Error: ", error)
 					return false
@@ -76,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				})
 				.then(resp => resp.json())
-				.then(data => setStore({userFavorites: data.Favorites}))
+				.then(data => {setStore({userFavorites: data})})
 			},
 			addFavorite: (name, type, id) => {
 				const store = getStore();
@@ -95,10 +100,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const newArr = store.favorites.filter((item) => item.name != obj.name)
 				setStore({favorites: newArr})
 			},
-			loginStatus: () => {
-				const store = getStore()
-				const setLogin = !store.loggedIn
-				setStore({loggedIn: setLogin})
+			logout: () => {
+				setStore({loggedIn: false})
+				setStore({token: ''})
+				setStore({userFavorites: []})
 			}
 		}
 	};

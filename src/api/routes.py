@@ -60,10 +60,10 @@ def get_all_users():
     users = User.query.all()
     return jsonify(Users=[user.serialize() for user in users])
 
-@api.route('/favorites', methods=['GET'])
-def get_all_favorites():
-    favorites = Favorites.query.all()
-    return jsonify(Favorites=[favorite.serialize() for favorite in favorites])
+#@api.route('/favorites', methods=['GET'])
+#def get_all_favorites():
+#    favorites = Favorites.query.all()
+#    return jsonify(Favorites=[favorite.serialize() for favorite in favorites])
 
 @api.route('/favorites', methods=['GET'])
 @jwt_required()
