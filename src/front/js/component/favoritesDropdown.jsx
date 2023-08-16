@@ -12,20 +12,19 @@ const FavoritesDropdown = () => {
   console.log(store.userFavorites)
 
   return (
-    <div className="dropdown">
+    <div className="dropdown-center">
         <button 
         className="btn btn-primary dropdown-toggle" 
         type="button" 
         data-bs-toggle="dropdown" 
         aria-expanded="false"
-        disabled={store.userFavorites.length === 0 ? true : false}
         >
             Favorites 
             {store.userFavorites.length > 0 ? (<span className='bg-light ms-1 text-danger px-2 fw-semibold rounded-circle'>
                 {store.userFavorites.length}
             </span>) : ""}
         </button>
-        <ul className="dropdown-menu">
+        <ul className="dropdown-menu dropdown-menu-end">
             {store.userFavorites.map((item, idx) => {
                 return (
                   <div key={idx} className='dropdown-item d-flex justify-content-between align-items-center'>

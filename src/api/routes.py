@@ -18,12 +18,6 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@api.route('/test', methods=['GET'])
-def token_maker():
-    return jsonify(
-        token=create_access_token("Is this a valid token?")
-    )
-
 @api.route('/signup', methods=['POST'])
 def signup():
     data = request.json
@@ -60,24 +54,13 @@ def get_all_users():
     users = User.query.all()
     return jsonify(Users=[user.serialize() for user in users])
 
-#@api.route('/favorites', methods=['GET'])
-#def get_all_favorites():
-#    favorites = Favorites.query.all()
-#    return jsonify(Favorites=[favorite.serialize() for favorite in favorites])
-
 @api.route('/favorites', methods=['GET'])
 @jwt_required()
 def get_favorites_of_user():
     user = User.query.filter_by(email=get_jwt_identity()).first()
     favorites = Favorites.query.filter_by(user_id=user.id).all()
     print(favorites)
-    if favorites:
-        return jsonify([favorite.serialize() for favorite in favorites]), 200
-    else:
-        return jsonify(
-            message="User not found",
-            User=None
-        ), 401
+    return jsonify([favorite.serialize() for favorite in favorites]), 200
     
 @api.route('/favorites', methods=['POST'])
 @jwt_required()
