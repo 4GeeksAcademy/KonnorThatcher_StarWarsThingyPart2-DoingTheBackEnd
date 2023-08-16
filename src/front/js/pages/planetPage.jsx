@@ -39,16 +39,19 @@ const PlanetPage = () => {
                         <b>Population:</b> {planet.population}
                     </li>
                     <li>
+                        <b>Diameter:</b> {planet.diameter} km
+                    </li>
+                    <li>
                         <b>Terrain:</b> {planet.terrain}
                     </li>
                     <li>
                         <b>Climate:</b> {planet.climate}
                     </li>
                     <li>
-                        <b>Hours in a Day:</b> {planet.rotation_period} hours
+                        <b>Hours in a Day:</b> {planet.hours_in_day} hours
                     </li>
                     <li>
-                        <b>Days in a Year:</b> {planet.orbital_period} days
+                        <b>Days in a Year:</b> {planet.days_in_year} days
                     </li>
                 </ul>
             </div>)}

@@ -28,7 +28,7 @@ const CharacterPage = () => {
         let remainder = Math.floor(inches) - (feet * 12)
         return `${feet}'${remainder}`
     }
-
+    
     console.log(character)
 
     return (
@@ -48,16 +48,22 @@ const CharacterPage = () => {
                         <b>Gender:</b> {character.gender}
                     </li>
                     <li>
+                        <b>Species:</b> {character.species}
+                    </li>
+                    <li>
                         <b>Birth Year:</b> {character.birth_year}
                     </li>
                     <li>
                         <b>Height:</b> {cmToFt(character.height)}
                     </li>
                     <li>
-                        <b>Homeworld:</b> {character.homeworld}
+                        <b>Weight:</b> {character.weight * 2.205} lbs
                     </li>
                     <li>
                         <b>Eye Color:</b> {character.eye_color}
+                    </li>
+                    <li>
+                        <b>Homeworld:</b> {character.homeworld}
                     </li>
                 </ul>
             </div>)}

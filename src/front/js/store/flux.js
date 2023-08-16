@@ -4,18 +4,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			token: '',
 			loggedIn: false,
-			favorites: [
-				{
-					name: "R5-D4",
-					type: "character",
-					id: "8"
-				},
-				{
-					name: "Bespin",
-					type: "planet",
-					id: "6"
-				}
-			],
 			userFavorites: []
 		},
 		actions: {
@@ -83,18 +71,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(resp => resp.json())
 				.then(data => {setStore({userFavorites: data})})
 			},
-			addFavorite: (name, type, id) => {
-				const store = getStore();
-				if (store.favorites.filter((item) => item.name === name).length === 0) {
-					const newObj = {
-						name: name,
-						type: type,
-						id: id
-					}
-					const newArr = [...store.favorites, newObj]
-					setStore({favorites: newArr})
-				} else console.log("That's already in here");
-			},
 			addUserFavorite: (name, type, id) => {
 				fetch(`${process.env.BACKEND_URL}api/favorites`, {
 					method: 'POST',
@@ -111,11 +87,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(resp => {
 					if (resp.ok) getActions().getUserFavorites()
 				})
-			},
-			removeFavorite: (obj) => {
-				const store = getStore();
-				const newArr = store.favorites.filter((item) => item.name != obj.name)
-				setStore({favorites: newArr})
 			},
 			deleteUserFavorite: (fav_id) => {
 				fetch(`${process.env.BACKEND_URL}api/favorites/${fav_id}`, {
