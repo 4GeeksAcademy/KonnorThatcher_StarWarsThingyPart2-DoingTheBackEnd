@@ -95,10 +95,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({favorites: newArr})
 				} else console.log("That's already in here");
 			},
+			addUserFavorite: (name, type, id) => {
+				fetch(`${process.env.BACKEND_URL}api/favorites`, {
+					method: 'POST',
+					headers: {
+						Authorization: `Bearer ${getStore().token}`,
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						name: name,
+						type: type,
+						og_id: id
+					})
+				})
+				.then(resp => {
+					if (resp.ok) getActions().getUserFavorites()
+				})
+			},
 			removeFavorite: (obj) => {
 				const store = getStore();
 				const newArr = store.favorites.filter((item) => item.name != obj.name)
 				setStore({favorites: newArr})
+			},
+			deleteUserFavorite: (fav_id) => {
+				fetch(`${process.env.BACKEND_URL}api/favorites/${fav_id}`, {
+					method: 'DELETE',
+					headers: {
+						Authorization: `Bearer ${getStore().token}`
+					}
+				})
+				.then(resp => {
+					if (resp.ok) getActions().getUserFavorites()
+				})
 			},
 			logout: () => {
 				setStore({loggedIn: false})

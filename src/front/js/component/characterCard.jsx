@@ -29,8 +29,9 @@ const CharacterCard = ({
                 <button className='btn btn-info'>Learn More!</button>
             </Link>
             <button 
-            className={`btn btn-${store.favorites.filter((item) => item.name === name).length < 1 ? "outline-" : "" }danger`} 
-            onClick={() => actions.addFavorite(name, "character", id)}
+            className={`btn btn-${store.userFavorites.filter((item) => item.name === name).length < 1 ? "outline-" : "" }danger`} 
+            onClick={() => actions.addUserFavorite(name, "character", id)}
+            disabled={store.loggedIn ? false : true}
             >
                 <i className="fa-regular fa-heart"></i>
             </button>

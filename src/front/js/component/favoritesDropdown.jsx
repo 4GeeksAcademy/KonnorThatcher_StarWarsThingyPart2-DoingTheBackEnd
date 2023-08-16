@@ -18,21 +18,21 @@ const FavoritesDropdown = () => {
         type="button" 
         data-bs-toggle="dropdown" 
         aria-expanded="false"
-        disabled={store.favorites.length === 0 ? true : false}
+        disabled={store.userFavorites.length === 0 ? true : false}
         >
             Favorites 
-            {store.favorites.length > 0 ? (<span className='bg-light ms-1 text-danger px-2 fw-semibold rounded-circle'>
-                {store.favorites.length}
+            {store.userFavorites.length > 0 ? (<span className='bg-light ms-1 text-danger px-2 fw-semibold rounded-circle'>
+                {store.userFavorites.length}
             </span>) : ""}
         </button>
         <ul className="dropdown-menu">
-            {store.favorites.map((item, idx) => {
+            {store.userFavorites.map((item, idx) => {
                 return (
                   <div key={idx} className='dropdown-item d-flex justify-content-between align-items-center'>
-                      <Link to={`/${item.type}Page/${item.id}`}>
+                      <Link to={`/${item.type}Page/${item.og_id}`}>
                           <p className='my-1'>{item.name}</p>
                       </Link>
-                      <button className="btn btn-danger ms-1" onClick={() => actions.removeFavorite(item)}>
+                      <button className="btn btn-danger ms-1" onClick={() => actions.deleteUserFavorite(item.fav_id)}>
                           <i className="fa-solid fa-trash-can"></i>
                       </button>
                   </div>

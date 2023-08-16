@@ -90,6 +90,7 @@ def add_favorite():
     }
     '''
     post_req = request.json
+    print(post_req)
     
     user = User.query.filter_by(email=get_jwt_identity()).first()
     favorites = Favorites.query.filter_by(user_id=user.id).all()
@@ -136,8 +137,8 @@ def add_favorite():
     else:
         return jsonify(msg="Data type doesn't exist"), 400
 
-@api.route('/favorites/<int:fav_id>', methods=['DELETE'])
-@jwt_required
+@api.route('/favorites/<fav_id>', methods=['DELETE'])
+@jwt_required()
 def delete_favorite(fav_id):
     user = User.query.filter_by(email=get_jwt_identity()).first()
     favorite = Favorites.query.get(fav_id)
